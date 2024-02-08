@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BankCRM.Models
 {
-    public class ClientDto
+    public class ClientsDto
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -20,11 +20,8 @@ namespace BankCRM.Models
         public string EmployerName { get; set; }
         public string JobTitle { get; set; }
         public string WorkPhoneNumber { get; set; }
-        public decimal Income { get; set; }
 
-        public override string ToString()
-        {
-            return "Clients";
-        }
+       
     }
+   
 }

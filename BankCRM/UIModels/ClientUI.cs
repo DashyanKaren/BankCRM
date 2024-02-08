@@ -8,7 +8,7 @@ using BankCRM.Models;
 
 namespace BankCRM.UIModels
 {
-    public class ClientUI : ClientDto
+    public class ClientUI : ClientsDto
     {
         public int ClientId { get; set; }
         public string FirstName { get; set; }
@@ -26,11 +26,9 @@ namespace BankCRM.UIModels
         public string WorkPhoneNumber { get; set; }
         public decimal Income { get; set; }
 
-        // Balances in different currencies
 
-        public virtual List<BalancesDto> Balances { get; set; }
+        public  List<BalancesDto> Balances { get; set; }
         public AddressUI AddressUI { get; set; }
-        // Navigation property for attached documents
-        public virtual List<DocumentsDto> AttachedDocuments { get; set; }
+        public  List<DocumentsDto> AttachedDocuments { get; set; }
     }
 }

@@ -11,28 +11,36 @@ namespace BankCRM
             DbManager dbManager = new DbManager("Server=localhost\\MSSQLSERVER01;Database=BankCRM;Trusted_Connection=True;");
 
             GenericDAL genericDAL = new GenericDAL(dbManager);
-            ClientDto client = new ClientDto()
+            RequestDto requestDto = new RequestDto() { FirstName="Nik", LastName="Pas"};
+            var x=genericDAL.GetEntity(requestDto);
+            foreach (var item in x)
             {
-                DateOfBirth = DateTime.Now,
-                FirstName = "Emil",
-                LastName = "Voskanyan",
-                // ClientId = 1
+                Console.WriteLine(item.ClientId);
+                Console.Write(item.FirstName+" ");
+                Console.WriteLine(item.LastName);
+            }
+            //ClientsDto client = new ClientsDto()
+            //{
+            //    DateOfBirth = DateTime.Now,
+            //    FirstName = "Sarik",
+            //    LastName = "Voskanyan",
+            //    // ClientId = 1
 
-            };
+            //};
             //genericDAL.AddEntity(client);
-            var x = genericDAL.AddEntity(client).GetAwaiter();
-              client.FirstName = "Ashot";
+            //var x = genericDAL.AddEntity(client).GetAwaiter();
+            //client.FirstName = "Ashot";
 
 
-              genericDAL.UpdateEntity(client, x.GetResult());
-            BalancesDto clientBalance = new BalancesDto()
-            {
+            //genericDAL.UpdateEntity(client, x.GetResult());
+            //BalancesDto clientBalance = new BalancesDto()
+            //{
 
-                ClientId = x.GetResult(),
-                BalanceAmount = 10,
-                CurrencyCode = 8,
-            };
-            genericDAL.AddEntity(clientBalance);
+            //    ClientId = x.GetResult(),
+            //    BalanceAmount = 10,
+            //    CurrencyCode = Currency.AMD 
+            //};
+            //genericDAL.AddEntity(clientBalance);
             //DocumentsDto documents = new DocumentsDto()
             //{
             //    ClientId = x.GetResult(),
@@ -41,6 +49,9 @@ namespace BankCRM
             //    IsValid = true
             //};
             //genericDAL.AddEntity(documents);
+            //genericDAL.DeleteEntity(16);
+
+
             Console.ReadLine();
 
         }

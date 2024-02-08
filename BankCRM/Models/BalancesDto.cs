@@ -10,14 +10,17 @@ namespace BankCRM.Models
     {
         
         public decimal BalanceAmount { get; set; }
-        public int CurrencyCode { get; set; }
+        public Currency CurrencyCode { get; set; }
 
-        // Foreign key to associate with the client
         public int ClientId { get; set; }
-        //public ClientDAL Client { get; set; }
-        public override string ToString()
-        {
-            return "Balances";
-        }
+    
+    }
+    public enum Currency
+    { 
+     AMD=1,
+     USD=2,
+     EUR=3,
+     RUR=4,
+     CRYPTO=5
     }
 }
