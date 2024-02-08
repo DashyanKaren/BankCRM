@@ -21,5 +21,10 @@ namespace BankCRM.Models
         public string JobTitle { get; set; }
         public string WorkPhoneNumber { get; set; }
         public decimal Income { get; set; }
+
+        public override string ToString()
+        {
+            return "Clients";
+        }
     }
 }

@@ -15,5 +15,9 @@ namespace BankCRM.Models
         // Foreign key to associate with the client
         public int ClientId { get; set; }
         //public ClientDAL Client { get; set; }
+        public override string ToString()
+        {
+            return "Balances";
+        }
     }
 }

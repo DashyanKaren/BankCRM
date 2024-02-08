@@ -6,37 +6,41 @@ namespace BankCRM
 {
     internal class Program
     {
-        static void Main(string[] args)
+        static  void Main(string[] args)
         {
             DbManager dbManager = new DbManager("Server=localhost\\MSSQLSERVER01;Database=BankCRM;Trusted_Connection=True;");
 
             GenericDAL genericDAL = new GenericDAL(dbManager);
-            //ClientDto client = new ClientDto()
-            //{
-            //    DateOfBirth = DateTime.Now,
-            //    FirstName = "Nikol",
-            //    LastName = "Pashinyan",
-            //   // ClientId = 1
+            ClientDto client = new ClientDto()
+            {
+                DateOfBirth = DateTime.Now,
+                FirstName = "Emil",
+                LastName = "Voskanyan",
+                // ClientId = 1
 
-            //};
-            //var x= genericDAL.AddEntity(client, "Clients");
-            
+            };
+            //genericDAL.AddEntity(client);
+            var x = genericDAL.AddEntity(client).GetAwaiter();
+              client.FirstName = "Ashot";
+
+
+              genericDAL.UpdateEntity(client, x.GetResult());
             BalancesDto clientBalance = new BalancesDto()
             {
 
-                BalanceAmount = 1000200,
-                CurrencyCode = 4,
-                ClientId =  38
+                ClientId = x.GetResult(),
+                BalanceAmount = 10,
+                CurrencyCode = 8,
             };
-            genericDAL.AddEntity(clientBalance,"Balances");
+            genericDAL.AddEntity(clientBalance);
             //DocumentsDto documents = new DocumentsDto()
             //{
-            //    ClientId = x.Result,
+            //    ClientId = x.GetResult(),
             //    DocumentType = "Passport",
             //    FileName = "Passport",
             //    IsValid = true
             //};
-          //genericDAL.AddEntity(documents, "Documents");
+            //genericDAL.AddEntity(documents);
             Console.ReadLine();
 
         }

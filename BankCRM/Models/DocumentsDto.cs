@@ -17,6 +17,11 @@ namespace BankCRM.Models
 
         public string DocumentType { get; set; }  // e.g., Passport, ID Card, etc.
         public bool IsValid { get; set; }  // Indicates whether the document is valid or not
+
+        public override string ToString()
+        {
+            return "Documents";
+        }
     }
 
 }
