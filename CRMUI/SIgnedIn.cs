@@ -1,3 +1,6 @@
+using BankCRM.Models;
+using BankCRM.Repository;
+
 namespace CRMUI
 {
     public partial class SIgnedIn : Form
@@ -12,7 +15,6 @@ namespace CRMUI
             DelBtn.Visible = false;
             UpBtn.Visible = false;
             toAddressBtn.Click += button1_Click;
-
         }
 
         private void AddBtn_Click(object sender, EventArgs e)
@@ -26,9 +28,42 @@ namespace CRMUI
 
         private void button1_Click(object sender, EventArgs e)
         {
+            string conn = "Server=localhost\\MSSQLSERVER01;Database=master;Trusted_Connection=True;";
+            DbManager dbManager = new DbManager(conn);
+            GenericDAL genericDAL = new GenericDAL(dbManager);
+            ClientsDto clientsDto = new ClientsDto();
+            try
+            {
+              
 
+
+                clientsDto.FirstName = FirstNameInput.Text;
+                clientsDto.LastName = LastNameInput.Text;
+                clientsDto.DateOfBirth = BirthInput.Value;
+                clientsDto.Gender = GenderInput.Text;
+                clientsDto.PassportNumber = PassportInput.Text;
+                clientsDto.IDPassport = IdPassportInput.Text;
+                clientsDto.PhoneNumber = PhoneNumberInput.Text;
+                clientsDto.Email = EmailInput.Text;
+                clientsDto.EmployerName = EmployerNameInput.Text;
+                clientsDto.WorkPhoneNumber = WorkPhoneNumberInput.Text;
+                clientsDto.JobTitle = JobTitleInput.Text;
+                clientsDto.IsMaried = checkMarried.Checked;
+
+                    
+                
+                genericDAL.AddEntity(clientsDto);   
+                AdressPanel.Visible = !AdressPanel.Visible;
+                ClientPanel.Visible = !ClientPanel.Visible;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
             AdressPanel.Visible = !AdressPanel.Visible;
             ClientPanel.Visible = !ClientPanel.Visible;
+
         }
 
         private void button1_Click_1(object sender, EventArgs e)
@@ -51,11 +86,10 @@ namespace CRMUI
 
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    // Get the selected file path
+
                     string pdfPath = openFileDialog.FileName;
 
-                    // Perform operations with the PDF path (e.g., display or save it)
-                    // Note: Handling PDF files may require additional libraries or components.
+
                 }
             }
         }

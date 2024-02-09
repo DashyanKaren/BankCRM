@@ -1,4 +1,5 @@
 ﻿using BankCRM.Interfaces;
+using BankCRM.Interfaces.ForDAL;
 using BankCRM.Models;
 using BankCRM.UIModels;
 using System;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace BankCRM.Repository
 {
-    public class DocumentsDAL:IDocumentsDAL,IGetTableName
+    public class DocumentsDAL: IDocumentsDAL, IGetTableName
     {
         private readonly DbManager dbManager;
 

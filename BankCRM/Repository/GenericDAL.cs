@@ -6,12 +6,13 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using BankCRM.Interfaces;
+using BankCRM.Interfaces.ForDAL;
 using BankCRM.Models;
 using BankCRM.UIModels;
 
 namespace BankCRM.Repository
 {
-    public class GenericDAL:IGenericDAL,IGetTableName
+    public class GenericDAL: IGenericDAL, IGetTableName
     {
         private readonly DbManager dbManager;
 

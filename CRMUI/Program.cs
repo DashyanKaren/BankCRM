@@ -1,3 +1,6 @@
+using BankCRM.Models;
+using BankCRM.Repository;
+
 namespace CRMUI
 {
     internal static class Program
@@ -12,7 +15,13 @@ namespace CRMUI
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
             Application.Run(new SIgnedIn());
-            
+            string conn = "Server=localhost\\MSSQLSERVER01;Database=master;Trusted_Connection=True;";
+            DbManager dbManager = new DbManager(conn);
+            GenericDAL genericDAL = new GenericDAL(dbManager);
+            ClientsDto clientsDto = new ClientsDto();
+
+
+
         }
     }
 }

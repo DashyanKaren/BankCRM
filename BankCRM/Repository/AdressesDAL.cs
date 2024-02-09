@@ -1,4 +1,5 @@
 ﻿using BankCRM.Interfaces;
+using BankCRM.Interfaces.ForDAL;
 using BankCRM.Models;
 using BankCRM.UIModels;
 using System;

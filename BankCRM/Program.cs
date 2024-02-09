@@ -1,5 +1,6 @@
 ﻿using BankCRM.Models;
 using BankCRM.Repository;
+using BankCRM.Service;
 using BankCRM.UIModels;
 
 namespace BankCRM
@@ -14,6 +15,25 @@ namespace BankCRM
             BalancesDAL balancesDAL = new BalancesDAL(dbManager);
             DocumentsDAL documentsDAL= new DocumentsDAL(dbManager);
             AdressesDAL adressesDAL= new AdressesDAL(dbManager);
+            UsersDAL usersDAL = new UsersDAL(dbManager);
+            UserService userService = new UserService(usersDAL);
+
+          //  userService.CreateUser("Aren", "armen@gmail.com", "123");
+
+            Authentication auth = new Authentication();
+
+            Console.Write("Enter username: ");
+            string username = Console.ReadLine();
+
+            Console.Write("Enter password: ");
+            string password = Console.ReadLine();
+
+            bool isAuthenticated = auth.AuthenticateUser(username, password);
+
+            if (isAuthenticated)
+            {
+                Console.WriteLine("Authentication successful!");
+           
 
             //RequestDto requestDto = new RequestDto() { FirstName="Nik", LastName="Pas"};
             //var x=genericDAL.GetEntity(requestDto);
@@ -56,10 +76,14 @@ namespace BankCRM
             //genericDAL.AddEntity(documents);
             //genericDAL.DeleteEntity(16);
 
-           // documentsDAL.UpdateEntity(documents,82);
+            // documentsDAL.UpdateEntity(documents,82);
 
             Console.ReadLine();
-
+            }
+            else
+            {
+                Console.WriteLine("Authentication failed. Invalid username or password.");
+            }
         }
        
     }

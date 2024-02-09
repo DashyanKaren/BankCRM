@@ -1,4 +1,5 @@
-﻿using BankCRM.Models;
+﻿using BankCRM.Interfaces.ForDAL;
+using BankCRM.Models;
 using BankCRM.UIModels;
 using Newtonsoft.Json;
 using System;
