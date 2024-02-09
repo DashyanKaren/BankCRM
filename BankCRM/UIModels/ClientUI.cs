@@ -28,7 +28,7 @@ namespace BankCRM.UIModels
 
 
         public  List<BalancesDto> Balances { get; set; }
-        public AddressUI AddressUI { get; set; }
+        public AdressUI AddressUI { get; set; }
         public  List<DocumentsDto> AttachedDocuments { get; set; }
     }
 }

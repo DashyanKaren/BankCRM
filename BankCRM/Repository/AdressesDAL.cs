@@ -1,21 +1,22 @@
-﻿using System;
+﻿using BankCRM.Interfaces;
+using BankCRM.Models;
+using BankCRM.UIModels;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using BankCRM.Interfaces;
-using BankCRM.Models;
-using BankCRM.UIModels;
 
 namespace BankCRM.Repository
 {
-    public class GenericDAL:IGenericDAL,IGetTableName
+    public class AdressesDAL:IAdressesDAL,IGetTableName
     {
         private readonly DbManager dbManager;
 
-        public GenericDAL(DbManager dbManager)
+
+        public AdressesDAL(DbManager dbManager)
         {
             this.dbManager = dbManager;
         }
@@ -35,7 +36,7 @@ namespace BankCRM.Repository
                     string values = string.Join(", ", properties.Select(p => $"@{p.Name}"));
 
                     string query = $"SET IDENTITY_INSERT {tableName} OFF; " +
-                                   $"INSERT INTO {tableName} ({columns}) VALUES ({values}) " +
+                                   $"INSERT INTO {tableName} ({columns}) VALUES ({values}); " +
                                    "SELECT SCOPE_IDENTITY();";
 
 
@@ -103,7 +104,7 @@ namespace BankCRM.Repository
         public async Task<bool> DeleteEntity(int clientId)
         {
 
-            string[] tableNames = new string[4] { "Balances", "Documents", "Adresses", "Clients" };
+            string[] tableNames = new string[1] { "Adresses"};
             using (SqlConnection connection = dbManager.OpenConnection())
             using (SqlTransaction transaction = connection.BeginTransaction())
             {
@@ -132,16 +133,16 @@ namespace BankCRM.Repository
             }
         }
 
-        public   List<ClientUI> GetEntity(RequestDto entity)
+        public List<AdressUI> GetEntity(RequestDto entity)
         {
-            List<ClientUI> result = new List<ClientUI>();
+            List<AdressUI> result = new List<AdressUI>();
 
             using (SqlConnection connection = dbManager.OpenConnection())
             using (SqlTransaction transaction = connection.BeginTransaction())
             {
                 try
                 {
-                    string query = "SELECT * FROM Clients WHERE 1 = 1";
+                    string query = "SELECT * FROM Adresses WHERE 1 = 1";
 
                     foreach (var item in entity.GetType().GetProperties())
                     {
@@ -165,18 +166,18 @@ namespace BankCRM.Repository
                         {
                             while (reader.Read())
                             {
-                                ClientUI client = new ClientUI
+                                AdressUI adress = new AdressUI
                                 {
                                     ClientId = reader.GetInt32(reader.GetOrdinal("ClientId")),
-                                    FirstName = reader["FirstName"].ToString(),
-                                    LastName = reader["LastName"].ToString(),
-                                 
+                                    City = reader["City"].ToString(),
+                                    Title = reader["Title"].ToString(),
+
                                 };
 
-                                result.Add(client);
+                                result.Add(adress);
                             }
                         }
-                        
+
                     }
                     transaction.Commit();
                 }

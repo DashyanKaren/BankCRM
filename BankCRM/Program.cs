@@ -11,46 +11,52 @@ namespace BankCRM
             DbManager dbManager = new DbManager("Server=localhost\\MSSQLSERVER01;Database=BankCRM;Trusted_Connection=True;");
 
             GenericDAL genericDAL = new GenericDAL(dbManager);
-            RequestDto requestDto = new RequestDto() { FirstName="Nik", LastName="Pas"};
-            var x=genericDAL.GetEntity(requestDto);
-            foreach (var item in x)
-            {
-                Console.WriteLine(item.ClientId);
-                Console.Write(item.FirstName+" ");
-                Console.WriteLine(item.LastName);
-            }
+            BalancesDAL balancesDAL = new BalancesDAL(dbManager);
+            DocumentsDAL documentsDAL= new DocumentsDAL(dbManager);
+            AdressesDAL adressesDAL= new AdressesDAL(dbManager);
+
+            //RequestDto requestDto = new RequestDto() { FirstName="Nik", LastName="Pas"};
+            //var x=genericDAL.GetEntity(requestDto);
+            //foreach (var item in x)
+            //{
+            //    Console.WriteLine(item.ClientId);
+            //    Console.Write(item.FirstName+" ");
+            //    Console.WriteLine(item.LastName);
+            //}
             //ClientsDto client = new ClientsDto()
             //{
             //    DateOfBirth = DateTime.Now,
-            //    FirstName = "Sarik",
-            //    LastName = "Voskanyan",
+            //    FirstName = "Saribek",
+            //    LastName = "Voskanyan13",
             //    // ClientId = 1
 
             //};
-            //genericDAL.AddEntity(client);
+            ////genericDAL.AddEntity(client);
             //var x = genericDAL.AddEntity(client).GetAwaiter();
-            //client.FirstName = "Ashot";
+            ////client.FirstName = "Ashot";
 
 
-            //genericDAL.UpdateEntity(client, x.GetResult());
-            //BalancesDto clientBalance = new BalancesDto()
-            //{
+            ////genericDAL.UpdateEntity(client, x.GetResult());
+            ////BalancesDto clientBalance = new BalancesDto()
+            ////{
 
-            //    ClientId = x.GetResult(),
-            //    BalanceAmount = 10,
-            //    CurrencyCode = Currency.AMD 
-            //};
-            //genericDAL.AddEntity(clientBalance);
+            ////    ClientId = 82,
+            ////    BalanceAmount = 3,
+            ////    CurrencyCode = Currency.USD
+            ////};
+            ////balancesDAL.UpdateEntity(clientBalance);
             //DocumentsDto documents = new DocumentsDto()
             //{
-            //    ClientId = x.GetResult(),
+            //    ClientId = 82,
             //    DocumentType = "Passport",
-            //    FileName = "Passport",
+            //    FileName = "ID",
             //    IsValid = true
             //};
+
             //genericDAL.AddEntity(documents);
             //genericDAL.DeleteEntity(16);
 
+           // documentsDAL.UpdateEntity(documents,82);
 
             Console.ReadLine();
 

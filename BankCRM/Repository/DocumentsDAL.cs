@@ -1,21 +1,21 @@
-﻿using System;
+﻿using BankCRM.Interfaces;
+using BankCRM.Models;
+using BankCRM.UIModels;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using BankCRM.Interfaces;
-using BankCRM.Models;
-using BankCRM.UIModels;
 
 namespace BankCRM.Repository
 {
-    public class GenericDAL:IGenericDAL,IGetTableName
+    public class DocumentsDAL:IDocumentsDAL,IGetTableName
     {
         private readonly DbManager dbManager;
 
-        public GenericDAL(DbManager dbManager)
+        public DocumentsDAL(DbManager dbManager)
         {
             this.dbManager = dbManager;
         }
@@ -35,7 +35,7 @@ namespace BankCRM.Repository
                     string values = string.Join(", ", properties.Select(p => $"@{p.Name}"));
 
                     string query = $"SET IDENTITY_INSERT {tableName} OFF; " +
-                                   $"INSERT INTO {tableName} ({columns}) VALUES ({values}) " +
+                                   $"INSERT INTO {tableName} ({columns})  VALUES ({values} ); " +
                                    "SELECT SCOPE_IDENTITY();";
 
 
@@ -46,13 +46,13 @@ namespace BankCRM.Repository
                         {
                             object value = property.GetValue(entity);
                             command.Parameters.AddWithValue($"@{property.Name}", value ?? DBNull.Value);
+                            
                         }
 
-
-                        var clientId = Convert.ToInt32(await command.ExecuteScalarAsync());
+                        var clientIdUniq = Convert.ToInt32(await command.ExecuteScalarAsync());
 
                         transaction.Commit();
-                        return clientId;
+                        return clientIdUniq;
                     }
 
                 }
@@ -103,7 +103,7 @@ namespace BankCRM.Repository
         public async Task<bool> DeleteEntity(int clientId)
         {
 
-            string[] tableNames = new string[4] { "Balances", "Documents", "Adresses", "Clients" };
+            string[] tableNames = new string[1] {"Documents" };
             using (SqlConnection connection = dbManager.OpenConnection())
             using (SqlTransaction transaction = connection.BeginTransaction())
             {
@@ -132,16 +132,16 @@ namespace BankCRM.Repository
             }
         }
 
-        public   List<ClientUI> GetEntity(RequestDto entity)
+        public List<DocumentsUI> GetEntity(RequestDto entity)
         {
-            List<ClientUI> result = new List<ClientUI>();
+            List<DocumentsUI> result = new List<DocumentsUI>();
 
             using (SqlConnection connection = dbManager.OpenConnection())
             using (SqlTransaction transaction = connection.BeginTransaction())
             {
                 try
                 {
-                    string query = "SELECT * FROM Clients WHERE 1 = 1";
+                    string query = "SELECT * FROM Documents WHERE 1 = 1";
 
                     foreach (var item in entity.GetType().GetProperties())
                     {
@@ -165,18 +165,18 @@ namespace BankCRM.Repository
                         {
                             while (reader.Read())
                             {
-                                ClientUI client = new ClientUI
+                                DocumentsUI doc = new DocumentsUI
                                 {
                                     ClientId = reader.GetInt32(reader.GetOrdinal("ClientId")),
-                                    FirstName = reader["FirstName"].ToString(),
-                                    LastName = reader["LastName"].ToString(),
-                                 
+                                    IsValid = reader.GetBoolean(reader.GetOrdinal("ClientId")),
+                                    DocumentType = reader["DocumentType"].ToString(),
+
                                 };
 
-                                result.Add(client);
+                                result.Add(doc);
                             }
                         }
-                        
+
                     }
                     transaction.Commit();
                 }

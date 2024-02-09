@@ -8,12 +8,11 @@ using System.Threading.Tasks;
 
 namespace BankCRM.Interfaces
 {
-    public interface IGenericDAL
+    internal interface IDocumentsDAL
     {
-        public  Task<int> AddEntity<T>(T entity);
+        public Task<int> AddEntity<T>(T entity);
         public Task<bool> UpdateEntity<T>(T entity, int clientId);
         public Task<bool> DeleteEntity(int clientId);
-        public List<ClientUI> GetEntity(RequestDto entity);
-
+        public List<DocumentsUI> GetEntity(RequestDto entity);
     }
 }

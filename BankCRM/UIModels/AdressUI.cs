@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BankCRM.UIModels
 {
-    public class AddressUI
+    public class AdressUI
     {
         public int ClientId { get; set; }
         public int AdressId { get; set; }
