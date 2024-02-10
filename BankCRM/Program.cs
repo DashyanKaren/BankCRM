@@ -18,7 +18,7 @@ namespace BankCRM
             UsersDAL usersDAL = new UsersDAL(dbManager);
             UserService userService = new UserService(usersDAL);
 
-          //  userService.CreateUser("Aren", "armen@gmail.com", "123");
+            userService.CreateUser("Karen", "armen@gmail.com", "1234");
 
             Authentication auth = new Authentication();
 

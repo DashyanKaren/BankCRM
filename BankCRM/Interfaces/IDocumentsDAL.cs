@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BankCRM.Interfaces
 {
-    internal interface IDocumentsDAL
+    public interface IDocumentsDAL
     {
         public Task<int> AddEntity<T>(T entity);
         public Task<bool> UpdateEntity<T>(T entity, int clientId);

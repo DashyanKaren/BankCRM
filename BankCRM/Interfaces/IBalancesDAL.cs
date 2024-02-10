@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BankCRM
 {
-    internal interface IBalances
+    public interface IBalances
     {
         public Task<int> AddEntity<T>(T entity);
         public Task<bool> UpdateEntity<T>(T entity);
